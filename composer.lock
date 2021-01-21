@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "ahmard/guzwrap",
-            "version": "1.2.14",
+            "version": "1.2.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ahmard/guzwrap.git",
-                "reference": "3101bf32c0248873ea4680b6bd0bdc27fb9a0e60"
+                "reference": "386bd14e4015b27ea6b4b989e10f9a822ba2701c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ahmard/guzwrap/zipball/3101bf32c0248873ea4680b6bd0bdc27fb9a0e60",
-                "reference": "3101bf32c0248873ea4680b6bd0bdc27fb9a0e60",
+                "url": "https://api.github.com/repos/Ahmard/guzwrap/zipball/386bd14e4015b27ea6b4b989e10f9a822ba2701c",
+                "reference": "386bd14e4015b27ea6b4b989e10f9a822ba2701c",
                 "shasum": ""
             },
             "require": {
@@ -41,9 +41,9 @@
             "description": "A wrapper around popular php http client, \"GuzzleHttp\"",
             "support": {
                 "issues": "https://github.com/Ahmard/guzwrap/issues",
-                "source": "https://github.com/Ahmard/guzwrap/tree/1.2.14"
+                "source": "https://github.com/Ahmard/guzwrap/tree/1.2.16"
             },
-            "time": "2021-01-10T13:22:46+00:00"
+            "time": "2021-01-18T03:16:56+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -791,16 +791,16 @@
     "packages-dev": [
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.65",
+            "version": "0.12.68",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "1c7658668b28f8d647a8b874372acf14c4352688"
+                "reference": "ddbe01af0706ee094c3f1ce9730b35aebb508d3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/1c7658668b28f8d647a8b874372acf14c4352688",
-                "reference": "1c7658668b28f8d647a8b874372acf14c4352688",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ddbe01af0706ee094c3f1ce9730b35aebb508d3d",
+                "reference": "ddbe01af0706ee094c3f1ce9730b35aebb508d3d",
                 "shasum": ""
             },
             "require": {
@@ -831,7 +831,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.65"
+                "source": "https://github.com/phpstan/phpstan/tree/0.12.68"
             },
             "funding": [
                 {
@@ -847,7 +847,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-06T16:51:10+00:00"
+            "time": "2021-01-18T12:29:17+00:00"
         }
     ],
     "aliases": [],
