@@ -1,28 +1,28 @@
 {
-    "name": "remcodex/client",
-    "description": "Remote code execution client",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Remcodex",
-            "email": "remotecodexecution@outlook.com"
-        }
-    ],
-    "require": {
-        "php": "^7.4 || ^8.0",
-        "ext-json": "*",
-        "ahmard/guzwrap": "^1.2",
-        "opis/closure": "^3.6",
-        "nette/utils": "^3.2",
-        "evenement/evenement": "^3.0"
-    },
-    "require-dev": {
-        "phpstan/phpstan": "^0.12.64"
-    },
-    "autoload": {
-        "psr-4": {
-            "Remcodex\\Client\\": "src/"
-        }
+  "name": "remcodex/client",
+  "description": "Remote code execution client",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Remcodex",
+      "email": "remotecodexecution@outlook.com"
     }
+  ],
+  "require": {
+    "php": "^7.4 || ^8.0",
+    "ext-json": "*",
+    "ahmard/guzwrap": "^1.2",
+    "opis/closure": "^3.6",
+    "nette/utils": "^3.2",
+    "evenement/evenement": "^3.0"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^0.12.64"
+  },
+  "autoload": {
+    "psr-4": {
+      "Remcodex\\Client\\": "src/"
+    }
+  }
 }

@@ -3,13 +3,13 @@
 namespace Remcodex\Client\Http;
 
 use Guzwrap\Core\GuzzleWrapper;
-use Guzwrap\Core\Post;
-use Nette\Utils\Json;
 use Psr\Http\Message\ResponseInterface;
+use Remcodex\Client\Constructor;
 
 class Request extends GuzzleWrapper implements RequestInterface
 {
     private static string $serverUrl = 'http://localhost:9000';
+    private array $bouncingValues;
 
     public static function create(): Request
     {
@@ -18,14 +18,19 @@ class Request extends GuzzleWrapper implements RequestInterface
 
     public function exec(): ResponseInterface
     {
-        return \Guzwrap\Request::post(function (Post $post) {
-            $post->url(self::$serverUrl);
-            $post->field('data', Json::encode(self::getRequestData()));
-        })->exec();
+        return Constructor::constructRequest($this, self::$serverUrl)->exec();
     }
 
-    public function execute(): RequestInterface
+    public function bounce($callbackOrBouncer): RequestInterface
     {
+        if (is_callable($callbackOrBouncer)) {
+            $bouncer = new Bouncer();
+            $callbackOrBouncer($bouncer);
+            $this->bouncingValues = $bouncer->getValues();
+            return $this;
+        }
+
+        $this->bouncingValues = $callbackOrBouncer->getValues();
         return $this;
     }
 }
