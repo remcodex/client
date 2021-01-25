@@ -23,23 +23,24 @@ composer require remcodex/client
 The following request will send request to [RCE Server](https://github.com/remcodex/server#simple-server)
 
 ```php
-use Guzwrap\Core\Post;
+use Guzwrap\Wrapper\Form;
 use Guzwrap\UserAgent;
 use Remcodex\Client\Http\Request;
 
 require 'vendor/autoload.php';
 
 $response = Request::create()
-    ->post(function (Post $post){
-        $post->url('http://localhost:8000');
-        $post->field('name', 'Ahmard');
-        $post->field('time', date('H:i:s'));
+    ->post(function (Form $form){
+        $form->action('http://localhost:8000');
+        $form->method('post');
+        $form->field('name', 'Ahmard');
+        $form->field('time', date('H:i:s'));
     })
     ->userAgent(UserAgent::OPERA)
-    ->withCookie()
+    ->withSharedCookie()
     ->debug()
-    ->exec();
+    ->execute();
 
-var_dump($response->getBody()->getContents());
+var_dump($response->data());
 
 ```
