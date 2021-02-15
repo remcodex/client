@@ -26,11 +26,22 @@ class Router
      * @param bool $waitForAvailability Wait for server to become available
      * @return Router
      */
-    public function chooseServer(string $geoLocation, $fallback = null, bool $waitForAvailability = true): Router
+    public function serverLocation(string $geoLocation, $fallback = null, bool $waitForAvailability = true): Router
     {
         $this->values['geo.location'] = $geoLocation;
         $this->values['geo.fallback'] = $fallback;
         $this->values['geo.waitForAvailability'] = $waitForAvailability;
+        return $this;
+    }
+
+    /**
+     * Specify which server to be connected to
+     * @param string $hostAddress a server host address, example http://localhost:9100
+     * @return $this
+     */
+    public function serverHost(string $hostAddress): Router
+    {
+        $this->values['host'] = $hostAddress;
         return $this;
     }
 

@@ -16,7 +16,11 @@ try {
             $form->field('time', date('H:i:s'));
         })
         ->router(function (Router $router){
-            $router->chooseServer('asia.indonesia');
+            //Choose server geo-location(if available)
+            $router->serverLocation('asia.indonesia');
+            //Choose specific server
+            $router->serverHost('http://localhost:9100');
+            //How many times your request need to be bounced between routers before sending it to actual destination
             $router->bounce(5);
         })
         ->userAgent(UserAgent::OPERA)

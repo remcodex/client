@@ -42,5 +42,4 @@ $response = Request::create()
     ->execute();
 
 var_dump($response->getSuccess());
-
 ```
