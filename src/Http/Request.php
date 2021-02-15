@@ -11,7 +11,7 @@ use Remcodex\Client\Exceptions\Http\InvalidResponseException;
 class Request extends Guzzle implements RequestInterface
 {
     private static string $serverUrl = 'http://localhost:9000';
-    private array $bouncingValues;
+    private array $routingValues = [];
 
     public static function create(): Request
     {
@@ -26,7 +26,12 @@ class Request extends Guzzle implements RequestInterface
      */
     public function execute(): Response
     {
-        $response = Constructor::constructRequest($this, self::$serverUrl)->exec();
+        $response = Constructor::constructRequest(
+            $this,
+            self::$serverUrl,
+            $this->routingValues
+        )->exec();
+
         if (200 != $response->getStatusCode()) {
             HttpErrorException::create($response, "Request ended with an error, inspect your response class for more information.");
         }
@@ -34,16 +39,16 @@ class Request extends Guzzle implements RequestInterface
         return new Response($response);
     }
 
-    public function bounce($callbackOrBouncer): RequestInterface
+    public function router($callbackOrRouter): RequestInterface
     {
-        if (is_callable($callbackOrBouncer)) {
-            $bouncer = new Bouncer();
-            $callbackOrBouncer($bouncer);
-            $this->bouncingValues = $bouncer->getValues();
+        if (is_callable($callbackOrRouter)) {
+            $router = new Router();
+            $callbackOrRouter($router);
+            $this->routingValues = $router->getValues();
             return $this;
         }
 
-        $this->bouncingValues = $callbackOrBouncer->getValues();
+        $this->routingValues = $callbackOrRouter->getValues();
         return $this;
     }
 }

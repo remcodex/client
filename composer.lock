@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9bb869271cdbe2b1bec2a72896995f30",
+    "content-hash": "bd9a7b2498cb846cc634a5f44da607dc",
     "packages": [
         {
             "name": "ahmard/guzwrap",
-            "version": "2.1.5",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ahmard/guzwrap.git",
-                "reference": "104def1d8afbc0b46767af449cb1922e82bddbe5"
+                "reference": "f5ec4375efd02528ee31a93c51a63bb1ff75d2d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ahmard/guzwrap/zipball/104def1d8afbc0b46767af449cb1922e82bddbe5",
-                "reference": "104def1d8afbc0b46767af449cb1922e82bddbe5",
+                "url": "https://api.github.com/repos/Ahmard/guzwrap/zipball/f5ec4375efd02528ee31a93c51a63bb1ff75d2d2",
+                "reference": "f5ec4375efd02528ee31a93c51a63bb1ff75d2d2",
                 "shasum": ""
             },
             "require": {
@@ -42,9 +42,9 @@
             "description": "A wrapper around popular php http client, \"GuzzleHttp\"",
             "support": {
                 "issues": "https://github.com/Ahmard/guzwrap/issues",
-                "source": "https://github.com/Ahmard/guzwrap/tree/2.1.5"
+                "source": "https://github.com/Ahmard/guzwrap/tree/2.2.0"
             },
-            "time": "2021-01-25T17:04:54+00:00"
+            "time": "2021-02-07T23:55:19+00:00"
         },
         {
             "name": "evenement/evenement",

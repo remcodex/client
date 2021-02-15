@@ -41,6 +41,6 @@ $response = Request::create()
     ->debug()
     ->execute();
 
-var_dump($response->data());
+var_dump($response->getSuccess());
 
 ```

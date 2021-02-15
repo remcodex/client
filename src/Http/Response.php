@@ -12,9 +12,11 @@ use Remcodex\Client\Exceptions\Http\InvalidResponseException;
 class Response
 {
     private ResponseInterface $response;
-    private bool $success;
-    private array $data;
+    private bool $hasError;
     private string $responder;
+    private ServerErrorResponse $serverErrorResponse;
+    private ServerSuccessResponse $serverSuccessResponse;
+
 
     /**
      * Response constructor.
@@ -25,17 +27,24 @@ class Response
     {
         $this->response = $response;
         try {
-
             $serverResp = Json::decode($response->getBody()->getContents(), Json::FORCE_ARRAY);
-            $serverResp['data'] = Json::decode($serverResp['data'], Json::FORCE_ARRAY) ?? [];
+            if (!isset($serverResp['success'])) {
+                InvalidResponseException::create($response, 'Server response is in invalid format, please check docs for supported response type.');
+            }
 
-            $this->checkAttribute($serverResp, 'success', 'boolean', 'is_bool');
-            $this->checkAttribute($serverResp, 'data', 'string', 'is_array');
-            $this->checkAttribute($serverResp, 'responder', 'string', 'is_string');
+            if ($serverResp['success']) {
+                $serverResp['data'] = Json::decode($serverResp['data'], Json::FORCE_ARRAY) ?? [];
 
-            $this->success = $serverResp['success'];
-            $this->data = $serverResp['data'];
-            $this->responder = $serverResp['responder'];
+                $this->checkAttribute($serverResp, 'data', 'string', 'is_array');
+                $this->checkAttribute($serverResp, 'responder', 'string', 'is_string');
+
+                $this->hasError = !$serverResp['success'];
+                $this->responder = $serverResp['responder'];
+                $this->serverSuccessResponse = new ServerSuccessResponse($serverResp['data']);
+            }else{
+                $this->hasError = true;
+                $this->serverErrorResponse = new ServerErrorResponse($serverResp);
+            }
 
         } catch (JsonException $e) {
             InvalidResponseException::create($response, "Returned json response is in invalid format.");
@@ -60,34 +69,43 @@ class Response
      * Get response http status code
      * @return int
      */
-    public function status(): int
+    public function getStatusCode(): int
     {
         return $this->response->getStatusCode();
     }
 
     /**
-     * Get response success attribute
+     * CHeck if response finishes with success or error
      * @return bool
      */
-    public function success(): bool
+    public function hasError(): bool
     {
-        return $this->success;
+        return $this->hasError;
     }
 
     /**
-     * Get response data attribute
-     * @return array
+     * Get response data
+     * @return ServerSuccessResponse|null
      */
-    public function data(): array
+    public function getSuccess(): ?ServerSuccessResponse
     {
-        return $this->data;
+        return $this->serverSuccessResponse ?? null;
+    }
+
+    /**
+     * Get response error
+     * @return ServerErrorResponse|null
+     */
+    public function getError(): ?ServerErrorResponse
+    {
+        return $this->serverErrorResponse ?? null;
     }
 
     /**
      * Get response responder attribute
      * @return string
      */
-    public function responder(): string
+    public function getResponder(): string
     {
         return $this->responder;
     }

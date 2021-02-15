@@ -11,11 +11,10 @@ use Remcodex\Client\Exceptions\Http\InvalidResponseException;
 interface RequestInterface extends \Guzwrap\RequestInterface
 {
     /**
-     * Define request bouncing behaviour
-     * @param callable|Bouncer $callbackOrBouncer
-     * @return RequestInterface
+     * @param callable|Router $callbackOrRouter
+     * @return $this
      */
-    public function bounce($callbackOrBouncer): RequestInterface;
+    public function router($callbackOrRouter): RequestInterface;
 
     /**
      * Execute request and return response

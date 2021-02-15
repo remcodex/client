@@ -2,13 +2,10 @@
 
 require 'vendor/autoload.php';
 
-use Guzwrap\Wrapper\Form;
 use Guzwrap\UserAgent;
-use GuzzleHttp\Exception\GuzzleException;
-use Nette\Utils\Json;
-use Remcodex\Client\Exceptions\Http\HttpErrorException;
-use Remcodex\Client\Exceptions\Http\InvalidResponseException;
+use Guzwrap\Wrapper\Form;
 use Remcodex\Client\Http\Request;
+use Remcodex\Client\Http\Router;
 
 try {
     $response = Request::create()
@@ -18,11 +15,21 @@ try {
             $form->field('name', 'Ahmard');
             $form->field('time', date('H:i:s'));
         })
+        ->router(function (Router $router){
+            $router->chooseServer('asia.indonesia');
+            $router->bounce(5);
+        })
         ->userAgent(UserAgent::OPERA)
         ->withCookie()
         ->execute();
-    var_dump($response->data());
-} catch (GuzzleException | InvalidResponseException | HttpErrorException $e) {
-    var_export((string)$e->getMessage());
-}
 
+    if ($response->hasError()) {
+        //echo $response->getError()->getMessage();
+        var_export($response->getError()->getError());
+    } else {
+        var_dump($response->getSuccess()->getData());
+    }
+
+} catch (Throwable $e) {
+    echo $e->getMessage() . PHP_EOL;
+}
