@@ -43,3 +43,8 @@ $response = Request::create()
 
 var_dump($response->getSuccess());
 ```
+
+Start server
+```bash
+php server.php
+```
