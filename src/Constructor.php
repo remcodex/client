@@ -4,10 +4,11 @@
 namespace Remcodex\Client;
 
 
-use Guzwrap\Request;
+use Guzwrap\Request as GuzRequest;
 use Guzwrap\RequestInterface;
 use Guzwrap\Wrapper\Form;
 use Nette\Utils\Json;
+use Remcodex\Client\Http\Request;
 
 class Constructor
 {
@@ -17,15 +18,21 @@ class Constructor
      * @param array $router
      * @return RequestInterface
      */
-    public static function constructRequest(RequestInterface $request, string $serverUrl, array $router = []): RequestInterface
+    public static function constructRequest(
+        RequestInterface $request,
+        string $serverUrl,
+        array $router = []
+    ): RequestInterface
     {
-        return Request::form(function (Form $form) use ($request, $serverUrl, $router) {
+        return GuzRequest::form(function (Form $form) use ($request, $serverUrl, $router) {
             $form->action($serverUrl);
             $form->method('post');
-            $form->field('command', 'http.request');
+            $form->field('command', Request::COMMAND_REQUEST);
             $form->field('time', microtime(true));
-            $form->field('guzwrap', Json::encode($request->getData()));
-            $form->field('router', Json::encode($router));
+            $form->field('payload', Json::encode([
+                'guzwrap' => $request->getData(),
+                'router' => $router
+            ]));
         });
     }
 }

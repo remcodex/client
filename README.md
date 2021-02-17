@@ -20,7 +20,8 @@ composer require remcodex/client
 
 ## Usage
 
-The following request will send request to [RCE Server](https://github.com/remcodex/server#simple-server)
+The following request will be encoded to json and send it to [RCE Server](https://github.com/remcodex/server#simple-server)
+, the server will then decode the request and execute it and return the response to client.
 
 ```php
 use Guzwrap\Wrapper\Form;
@@ -41,10 +42,34 @@ $response = Request::create()
     ->debug()
     ->execute();
 
-var_dump($response->getSuccess());
+var_dump($response->getSuccess()->getData());
 ```
 
 Start server
 ```bash
 php server.php
+```
+
+### Custom remote address
+Set your prepared remote [server](https://github.com/remcodex/server) 
+/ [router](https://github.com/remcodex/router) address.
+
+The following code will send request to **http://localhost:8000**
+using router hosted at **http://localhost:9000**
+```php
+use Remcodex\Client\Http\Request;
+
+$response = Request::create()
+    ->remoteAddress('http://localhost:9000')
+    ->get('http://localhost:8000')
+    ->exec();
+```
+
+### List remote servers
+List servers hosted in [RCE Router](https://github.com/remcodex/router)
+
+```php
+use Remcodex\Client\Http\Request;
+
+$servers = Request::listServers();
 ```

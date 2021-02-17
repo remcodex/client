@@ -11,6 +11,13 @@ use Remcodex\Client\Exceptions\Http\InvalidResponseException;
 interface RequestInterface extends \Guzwrap\RequestInterface
 {
     /**
+     * Set server/router http address
+     * @param string $httpAddress
+     * @return $this
+     */
+    public function remoteAddress(string $httpAddress): RequestInterface;
+
+    /**
      * @param callable|Router $callbackOrRouter
      * @return $this
      */
@@ -24,4 +31,10 @@ interface RequestInterface extends \Guzwrap\RequestInterface
      * @throws InvalidResponseException
      */
     public function execute(): Response;
+
+    /**
+     * List remote servers hosted in the router
+     * @return array
+     */
+    public static function listServers(): array;
 }
